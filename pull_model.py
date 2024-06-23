@@ -1,6 +1,7 @@
 import ollama 
 from tqdm import tqdm
-from logger import logger
+from .logger import logger
+from comfy.utils import ProgressBar
 
 class PullModel:
     def __init__(self):
@@ -40,9 +41,17 @@ class PullModel:
         model_name_full = model_name_full.strip() # trim whitespace from before and after model_name_full
         logger.info("Pulling model: " + model_name_full)
 
+
         if stream:
             current_digest, bars = '', {}
+            
             for progress in ollama.pull(model_name_full, stream=True):
+                total = progress.get('total', 100)
+                logger.info(f"total: {total}")
+                completed = progress.get('completed', 0)
+                logger.info(f"completed: {completed}")
+                pbar = ProgressBar(total) # Set the total size of the progress bar
+                pbar.update(completed) # Update the progress bar with the completed size so far
                 digest = progress.get('digest', '')
                 if digest != current_digest and current_digest in bars:
                     bars[current_digest].close()
