@@ -13,8 +13,7 @@ class PullModel:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "model_name": ("STRING", {"default": "phi3"}),
-                "tag": ("STRING", {"default": "latest"}),
+                "model_name": ("STRING", {"default": "phi3:latest"}),
                 "stream": ("BOOLEAN", {"default":"false"},),
             },
         }
@@ -33,21 +32,16 @@ class PullModel:
 
     CATEGORY = "LLM/Ollama"
 
-    def pull_model(self, model_name, tag, stream):
+    def pull_model(self, model_name, stream):
 
-        # if tag does not begin with : then add : to the string
-        if not tag.startswith(":"):
-            tag = ":" + tag
-
-        model_name_full = model_name + tag
-        model_name_full = model_name_full.strip() # trim whitespace from before and after model_name_full
-        self.logger.info("Pulling model: " + model_name_full)
+        model_name = model_name.strip() # trim whitespace
+        self.logger.info("Pulling model: " + model_name)
 
 
         if stream:
             current_digest, bars = '', {}
             
-            for progress in ollama.pull(model_name_full, stream=True):
+            for progress in ollama.pull(model_name, stream=True):
                 total = progress.get('total', 100)
                 #self.logger.debug(f"total: {total}")
                 completed = progress.get('completed', 0)
@@ -74,11 +68,11 @@ class PullModel:
 
                 current_digest = digest
         else:
-            response = ollama.pull(model_name_full, stream=stream)
+            response = ollama.pull(model_name, stream=stream)
             # Non-streaming scenario: handle the single response
             if 'completed' in response and 'total' in response:
                 self.logger.info(f"Download completed: {response['completed']} out of {response['total']} ({response['status']})")
 
         pull_result = "Model downloaded successfully"
-        return (pull_result, model_name_full,)
+        return (pull_result, model_name,)
 
