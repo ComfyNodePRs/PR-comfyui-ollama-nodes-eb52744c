@@ -6,6 +6,7 @@ ComfyUI custom nodes for working with [Ollama](https://github.com/ollama/ollama)
 - [X] Implement model pulling node
     - [x] Implement UI progress bar updates when pulling with `stream=True`
 - [x] Impelement Huggingface Hub model downloader node
+    - [ ] Implement progress bar updates when download models
 - [ ] Implement model loading node
 - [ ] Implement completion node
 - [ ] Implement completion node with vision model
