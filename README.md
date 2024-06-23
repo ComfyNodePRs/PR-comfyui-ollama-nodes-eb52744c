@@ -17,6 +17,7 @@ ComfyUI custom nodes for working with [Ollama](https://github.com/ollama/ollama)
 The following node packs are similar and effort will be made to integrate seemlessly with them:
 - https://github.com/daniel-lewis-ab/ComfyUI-Llama
 - https://github.com/get-salt-AI/SaltAI_Language_Toolkit
+- https://github.com/alisson-anjos/ComfyUI-Ollama-Describer
 
 
 ## Development
