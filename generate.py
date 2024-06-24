@@ -3,6 +3,13 @@ from comfy.utils import ProgressBar
 from .logging_setup import setup_logging
 import logging
 
+import torch
+import numpy as np
+from io import BytesIO
+from PIL import Image
+
+
+
 class GenerateOllama:
     def __init__(self):
         setup_logging()
@@ -12,9 +19,9 @@ class GenerateOllama:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "model_name": ("STRING", {"default": "phi3:latest"}),
-                "prompt": ("STRING", {"default": "Why is the sky blue?", "multiline":True}),
-                "system": ("STRING", {"default": "You are an AI assitent that always replies in rhyme.","multiline":True}),
+                "model_name": ("STRING", {"default": "llava:latest"}),
+                "prompt": ("STRING", {"default": "Describe the images", "multiline":True}),
+                "system": ("STRING", {"default": "You are an AI assitant that describes images in great detail, focusing on the lighting, mood, scene, details, subjects, hues, and colors","multiline":True}),
                 "stream": ("BOOLEAN", {"default": False}),
                 
             },
@@ -22,7 +29,7 @@ class GenerateOllama:
                 "template": ("STRING", {"default": ""}),
                 "format": ("STRING", {"default": ""}),
                 "context": ("LIST", {"element_type": "INTEGER"}),
-                "images": ("LIST", {"element_type": "STRING"}),
+                "images": ("IMAGE", {}),
                 "options": ("DICTIONARY", {"default": {}}),
                 "keep_alive": ("FLOAT", {"default": 0}), # -1 means keep model loaded forever, new models are replaced if necessary
             }
@@ -59,6 +66,41 @@ class GenerateOllama:
 
     CATEGORY = "LLM/Ollama"
 
+
+
+
+
+    def convert_images_to_png(self, image_tensor):
+        """
+        Convert a batch of images to a list of PNG-encoded BytesIO objects.
+
+        Args:
+        - image_tensor (torch.Tensor or np.ndarray): A tensor of shape [B, H, W, C].
+
+        Returns:
+        - image_list_png (list): A list of BytesIO objects containing PNG-encoded images.
+        """
+        if isinstance(image_tensor, np.ndarray):
+            image_tensor = torch.tensor(image_tensor)
+
+        # Ensure the image tensor has the correct shape
+        assert len(image_tensor.shape) == 4, "Image tensor must have shape [B, H, W, C]"
+        B, H, W, C = image_tensor.shape
+        assert C == 3, "Image tensor must have 3 channels (RGB)"
+
+        image_list_png = []
+
+        for i in range(B):
+            image = image_tensor[i].cpu().numpy()
+            image = (image * 255).astype(np.uint8)  # Assuming the tensor values are in [0, 1]
+            image_pil = Image.fromarray(image)
+            image_io = BytesIO()
+            image_pil.save(image_io, format='PNG')
+            image_io.seek(0)
+            image_list_png.append(image_io)
+
+        return image_list_png
+
     def generate_text(self, model_name, prompt, system, template, stream, format, context=None, images=None, options=None, keep_alive=None):
         self.logger.info(f"Generating text with model: {model_name}")
         self.logger.debug(f"Prompt: {prompt}")
@@ -71,6 +113,10 @@ class GenerateOllama:
         self.logger.debug(f"Options: {options}")
         self.logger.debug(f"Keep Alive: {keep_alive}")
 
+        if images is not None and len(images) > 0:
+            images = self.convert_images_to_png(images) # Convert the tensor to a BytesIO object
+
+        
         if stream:
             generated_text = ""
             for response in ollama.generate(

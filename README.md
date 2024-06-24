@@ -9,7 +9,8 @@ ComfyUI custom nodes for working with [Ollama](https://github.com/ollama/ollama)
     - [ ] Implement progress bar updates when download models
 - [ ] Implement model loading node
 - [x] Implement generate node
-- [ ] Implement generate node with vision model
+- [ ] Impelment generate node with streaming (I think it's just a UI limitation with ShowText class)
+- [x] Implement generate node with vision model (can take image batch as input!)
 - [ ] Implement chat node (likely requires new frontent node development)
 - [ ] Implement [model converter](https://github.com/ggerganov/llama.cpp/discussions/2948) node (saftetensor to GGUF)
 - [ ] Implement quantization node 
