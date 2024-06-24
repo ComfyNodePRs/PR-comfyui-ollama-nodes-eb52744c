@@ -24,7 +24,7 @@ class GenerateOllama:
                 "context": ("LIST", {"element_type": "INTEGER"}),
                 "images": ("LIST", {"element_type": "STRING"}),
                 "options": ("DICTIONARY", {"default": {}}),
-                "keep_alive": ("FLOAT", {"default": None}),
+                "keep_alive": ("FLOAT", {"default": 0}), # -1 means keep model loaded forever, new models are replaced if necessary
             }
         }
 
