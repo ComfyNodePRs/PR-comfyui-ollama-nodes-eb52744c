@@ -4,8 +4,8 @@ ComfyUI custom nodes for working with [Ollama](https://github.com/ollama/ollama)
 
 ## Screenshots
 
-![](ollama_nodes_pull_and_list_progress_bar_workflow_screenshot.png)
-![screenshot of ollama nodes image batch workflow](screnshots/ollama_nodes_batch_image_workflow_screenshot.png)
+![](screenshots/ollama_nodes_pull_and_list_progress_bar_workflow_screenshot.png)
+![](screenshots/ollama_nodes_batch_image_workflow_screenshot.png)
 
 ## TODO:
 - [X] Implement model pulling node
