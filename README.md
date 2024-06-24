@@ -8,9 +8,9 @@ ComfyUI custom nodes for working with [Ollama](https://github.com/ollama/ollama)
 - [x] Impelement Huggingface Hub model downloader node
     - [ ] Implement progress bar updates when download models
 - [ ] Implement model loading node
-- [x] Implement completion node
-- [ ] Implement completion node with vision model
-- [ ] Implement chat node
+- [x] Implement generate node
+- [ ] Implement generate node with vision model
+- [ ] Implement chat node (likely requires new frontent node development)
 - [ ] Implement [model converter](https://github.com/ggerganov/llama.cpp/discussions/2948) node (saftetensor to GGUF)
 - [ ] Implement quantization node 
 
