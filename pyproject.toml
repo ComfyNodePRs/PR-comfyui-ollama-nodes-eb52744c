@@ -12,4 +12,4 @@ Repository = "https://github.com/slyt/comfyui-ollama-nodes"
 [tool.comfy]
 PublisherId = "slyt"
 DisplayName = "comfyui-ollama-nodes"
-Icon = ""
+Icon = "https://github.com/slyt/comfyui-ollama-nodes/blob/main/comfyui-ollama-nodes-logo.png"
