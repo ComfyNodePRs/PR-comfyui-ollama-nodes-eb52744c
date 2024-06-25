@@ -10,7 +10,7 @@ Currently, it assumes that an Ollama server is running at `http://127.0.0.1:1143
 
 ## Screenshots
 
-Model pulling arbitrary models from the [Ollama Model Libary](https://ollama.com/library) with download progress bar:
+Pulling models from the [Ollama Model Libary](https://ollama.com/library) with download progress bar:
 ![](screenshots/ollama_nodes_pull_and_list_progress_bar_workflow_screenshot.png)
 
 Generating text descriptions of loaded images:
