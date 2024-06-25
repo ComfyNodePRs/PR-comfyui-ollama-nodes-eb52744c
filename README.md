@@ -43,4 +43,6 @@ If you'd like to contribute, please open a Git Issue describing what you'd like 
 
 ## Attributions
 
-- logger.py taken from https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite, GPL-3.0 license 
+- logger.py taken from https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite, GPL-3.0 license
+- [Ollama](https://github.com/ollama/ollama) MIT license, based on [llama.cpp](https://github.com/ggerganov/llama.cpp) MIT license
+- [huggingface_hub](https://github.com/huggingface/huggingface_hub) python library Apache-2.0 license
