@@ -1,10 +1,19 @@
+<div align="center">
+    <img src="comfyui-ollama-nodes-logo.png" alt="ComfyUI Ollama Nodes logo" width="200" height="200">
+</div>
+
 # comfyui-ollama-nodes
 
-ComfyUI custom nodes for working with [Ollama](https://github.com/ollama/ollama). Assumes that an Ollama server is running at `http://127.0.0.1:11434` and accessible by the ComfyUI backend.
+Add LLM workflows, including image recognition (vision), to ComfyUI via [Ollama](https://github.com/ollama/ollama)
+
+Currently, it assumes that an Ollama server is running at `http://127.0.0.1:11434` and accessible by the ComfyUI backend.
 
 ## Screenshots
 
+Model pulling arbitrary models from the [Ollama Model Libary](https://ollama.com/library) with download progress bar:
 ![](screenshots/ollama_nodes_pull_and_list_progress_bar_workflow_screenshot.png)
+
+Generating text descriptions of loaded images:
 ![](screenshots/ollama_nodes_batch_image_workflow_screenshot.png)
 
 ## TODO:
